@@ -133,7 +133,9 @@ with mlflow.start_run():
     print(f"\nBest model saved to {MODEL_DEPLOYMENT_PATH}")
 
     # Log the model to MLflow as an artifact
-    mlflow.sklearn.log_model(best_model, "best_xgboost_model")
+    # Explicitly trust XGBoost types for logging
+    mlflow.sklearn.log_model(best_model, "best_xgboost_model", 
+                             skops_trusted_types=['xgboost.core.Booster', 'xgboost.sklearn.XGBClassifier'])
     print("Model logged to MLflow.")
 
 print("Model training and evaluation complete.")
