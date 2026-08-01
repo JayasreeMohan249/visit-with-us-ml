@@ -40,7 +40,7 @@ numerical_features = [
     'MonthlyIncome'
 ]
 categorical_features = [
-    'TypeofContact', 'Occupation', 'Gender', 'ProductPitched', 'MaritalStatus'
+    'TypeofContact', 'Occupation', 'Gender', 'ProductPitched', 'MaritalStatus', 'Designation'
 ]
 
 # Create preprocessing pipelines for numerical and categorical features
