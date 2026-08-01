@@ -31,7 +31,7 @@ if model:
     number_of_person_visiting = st.slider("Number of Persons Visiting", 1, 10, 2)
     number_of_followups = st.slider("Number of Follow-ups", 0, 10, 3)
     preferred_property_star = st.slider("Preferred Property Star", 1, 5, 3)
-    number_of_trips = st.slider("Number of Trips (annually)", 0, 50, 5)
+    number_of_trips = st.slider("NumberOfTrips (annually)", 0, 50, 5)
     passport = st.selectbox("Passport", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
     pitch_satisfaction_score = st.slider("Pitch Satisfaction Score", 1, 5, 3)
     own_car = st.selectbox("Own Car", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
@@ -43,9 +43,11 @@ if model:
     gender = st.selectbox("Gender", ['Male', 'Female'])
     product_pitched = st.selectbox("Product Pitched", ['Domestic', 'International', 'Adventure', 'Resorts', 'Cruise', 'Luxury'])
     marital_status = st.selectbox("Marital Status", ['Married', 'Single', 'Divorced', 'Unmarried'])
+    designation = st.selectbox("Designation", ['Executive', 'Manager', 'Senior Manager', 'AVP', 'VP', 'Director', 'CEO'])
 
     # Create a DataFrame from inputs
     input_data = pd.DataFrame({
+        'Unnamed: 0': [0], # Dummy column to match expected features if present in trained model
         'Age': [age],
         'CityTier': [city_tier],
         'DurationOfPitch': [duration_of_pitch],
@@ -62,10 +64,11 @@ if model:
         'Occupation': [occupation],
         'Gender': [gender],
         'ProductPitched': [product_pitched],
-        'MaritalStatus': [marital_status]
+        'MaritalStatus': [marital_status],
+        'Designation': [designation]
     })
 
-    if st.button("Predict Purchase"):              
+    if st.button("Predict Purchase"):
         # Make prediction
         prediction = model.predict(input_data)[0]
         prediction_proba = model.predict_proba(input_data)[:, 1][0]
