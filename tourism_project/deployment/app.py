@@ -71,7 +71,7 @@ if model:
     if st.button("Predict Purchase"):
         # Make prediction
         prediction = model.predict(input_data)[0]
-        prediction_proba = model.predict_proba(input_data)[:, 1][0]
+        prediction_proba = float(model.predict_proba(input_data)[:, 1][0]) # Explicitly convert to float
 
         st.subheader("Prediction Result")
         st.write("**Probability of Purchase:**")
