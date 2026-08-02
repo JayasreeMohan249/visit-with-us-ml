@@ -83,16 +83,6 @@ if model:
         else:
             st.info("**Not likely to purchase the package.**")
 
-        st.subheader("Customer Summary")
-        for col, value in input_data.iloc[0].items():
-            if col == 'Passport':
-                display_value = "Yes" if value == 1 else "No"
-            elif col == 'OwnCar':
-                display_value = "Yes" if value == 1 else "No"
-            else:
-                display_value = value
-            st.write(f"**{col}:** {display_value}")
-
         st.subheader("Recommendation")
         if prediction_proba > 0.7:
             st.write("**Strongly recommend targeting this customer with personalized marketing campaigns.** Their high probability of purchase suggests a high return on investment.")
