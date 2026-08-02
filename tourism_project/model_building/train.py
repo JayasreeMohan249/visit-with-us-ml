@@ -121,9 +121,6 @@ with mlflow.start_run():
     print(f"ROC AUC: {roc_auc:.4f}")
     print("\nClassification Report:\n", classification_report(ytest, y_pred))
 
-    # Log report to MLflow
-    mlflow.log_artifact("classification_report.txt")
-
     # Log metrics to MLflow
     mlflow.log_metrics({
         "test_accuracy": accuracy,
