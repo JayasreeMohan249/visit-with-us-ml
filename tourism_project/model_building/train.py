@@ -33,14 +33,16 @@ except FileNotFoundError:
 
 # Identify categorical and numerical features
 # Based on the data description and typical feature types
+# train.py
 numerical_features = [
     'Age', 'CityTier', 'DurationOfPitch', 'NumberOfPersonVisiting',
     'NumberOfFollowups', 'PreferredPropertyStar', 'NumberOfTrips',
     'Passport', 'PitchSatisfactionScore', 'OwnCar', 'NumberOfChildrenVisiting',
     'MonthlyIncome'
 ]
+
 categorical_features = [
-    'TypeofContact', 'Occupation', 'Gender', 'ProductPitched', 'MaritalStatus', 'Designation'
+    'TypeofContact', 'Occupation', 'Gender', 'ProductPitched', 'MaritalStatus', 'Designation' # Corrected spaces
 ]
 
 # Create preprocessing pipelines for numerical and categorical features
@@ -118,6 +120,9 @@ with mlflow.start_run():
     print(f"F1-Score: {f1:.4f}")
     print(f"ROC AUC: {roc_auc:.4f}")
     print("\nClassification Report:\n", classification_report(ytest, y_pred))
+
+    # Log report to MLflow
+    mlflow.log_artifact("classification_report.txt")
 
     # Log metrics to MLflow
     mlflow.log_metrics({
