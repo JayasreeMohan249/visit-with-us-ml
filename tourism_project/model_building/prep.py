@@ -17,6 +17,11 @@ except FileNotFoundError:
 # CustomerID is an identifier, Designation might be too granular or not relevant for package purchase
 df = df.drop(columns=['CustomerID'], errors='ignore')
 
+# Drop 'Unnamed: 0' if it exists, an extraneous index column
+if 'Unnamed: 0' in df.columns:
+    df = df.drop(columns=['Unnamed: 0'], errors='ignore')
+    print("Dropped 'Unnamed: 0' column.")
+
 # Handle missing values by dropping rows with any missing data
 initial_rows = df.shape[0]
 df.dropna(inplace=True)
