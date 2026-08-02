@@ -18,6 +18,7 @@ def load_model():
 
 model = load_model()
 
+st.set_page_config(layout="centered") # Use centered layout for better appearance
 st.title("Tourism Package Purchase Prediction")
 st.write("Predict whether a customer will purchase the Wellness Tourism Package.")
 
@@ -73,9 +74,32 @@ if model:
         prediction_proba = model.predict_proba(input_data)[:, 1][0]
 
         st.subheader("Prediction Result")
+        st.write("**Probability of Purchase:**")
+        st.progress(prediction_proba)
+        st.write(f"{prediction_proba:.2f}")
+
         if prediction == 1:
-            st.success(f"The customer is likely to purchase the package (Probability: {prediction_proba:.2f})")
+            st.success("**Likely to purchase the package!**")
         else:
-            st.info(f"The customer is not likely to purchase the package (Probability: {prediction_proba:.2f})")
+            st.info("**Not likely to purchase the package.**")
+
+        st.subheader("Customer Summary")
+        for col, value in input_data.iloc[0].items():
+            if col == 'Passport':
+                display_value = "Yes" if value == 1 else "No"
+            elif col == 'OwnCar':
+                display_value = "Yes" if value == 1 else "No"
+            else:
+                display_value = value
+            st.write(f"**{col}:** {display_value}")
+
+        st.subheader("Recommendation")
+        if prediction_proba > 0.7:
+            st.write("**Strongly recommend targeting this customer with personalized marketing campaigns.** Their high probability of purchase suggests a high return on investment.")
+        elif prediction_proba > 0.4:
+            st.write("**Consider engaging this customer with additional information or a special offer.** They show moderate interest, and a push might convert them.")
+        else:
+            st.write("**Focus resources on customers with higher purchase probabilities.** For this customer, consider re-evaluating their needs or targeting different segments.")
+
 else:
     st.warning("Model could not be loaded. Please ensure the model training pipeline has run successfully.")
