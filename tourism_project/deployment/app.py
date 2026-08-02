@@ -47,7 +47,6 @@ if model:
 
     # Create a DataFrame from inputs
     input_data = pd.DataFrame({
-        'Unnamed: 0': [0], # Dummy column to match expected features if present in trained model
         'Age': [age],
         'CityTier': [city_tier],
         'DurationOfPitch': [duration_of_pitch],
